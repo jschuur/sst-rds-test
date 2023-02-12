@@ -2,18 +2,7 @@ import RDSDataService from 'aws-sdk/clients/rdsdataservice';
 import { Kysely, Selectable } from 'kysely';
 import { DataApiDialect } from 'kysely-data-api';
 import { RDS } from 'sst/node/rds';
-
-// via https://github.com/koskimas/kysely#minimal-example
-interface LogTable {
-  entryID: string;
-  type: string;
-  message: string;
-  created?: Date;
-}
-
-interface Database {
-  log: LogTable;
-}
+import { Database } from './sql.generated.js';
 
 // see https://github.com/serverless-stack/kysely-data-api
 export const DB = new Kysely<Database>({

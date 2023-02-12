@@ -1,8 +1,6 @@
 import { Time } from '@sst-rds-test/core/time';
-import { ApiHandler } from 'sst/node/api';
+import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
 
-export const handler = ApiHandler(async (_evt) => {
-  return {
-    body: `Hello world. The time is ${Time.now()}`,
-  };
-});
+export const handler: APIGatewayProxyHandlerV2 = async () => {
+  return `Hello world. The time is ${Time.now()}`;
+};

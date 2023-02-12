@@ -10,6 +10,7 @@ export function API({ stack }: StackContext) {
     },
     routes: {
       'GET /': 'packages/functions/src/list.handler',
+      'GET /create': 'packages/functions/src/create.handler',
       'GET /hello': 'packages/functions/src/hello.handler',
     },
   });
