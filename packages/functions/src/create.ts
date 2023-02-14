@@ -1,13 +1,21 @@
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
-import { createEntry } from '../../core/src/log';
+import AWS from 'aws-sdk';
+import { Queue } from 'sst/node/queue';
 
 export const handler: APIGatewayProxyHandlerV2 = async () => {
+  const sqs = new AWS.SQS();
+
   try {
-    const response = await createEntry('test', 'test message');
+    await sqs
+      .sendMessage({
+        QueueUrl: Queue.Queue.queueUrl,
+        MessageBody: JSON.stringify({ ordered: true }),
+      })
+      .promise();
 
     return {
       statusCode: 200,
-      body: JSON.stringify(response),
+      body: JSON.stringify({ message: 'Message sent to queue' }),
     };
   } catch (e) {
     return {

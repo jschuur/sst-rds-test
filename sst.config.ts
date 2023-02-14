@@ -1,5 +1,5 @@
 import { SSTConfig } from 'sst';
-import { API } from './stacks/Api.js';
+import { Stack } from './stacks/Stack.js';
 
 declare let process: {
   env: {
@@ -21,6 +21,6 @@ export default {
       },
     });
 
-    app.stack(API);
+    app.stack(Stack);
   },
 } satisfies SSTConfig;
