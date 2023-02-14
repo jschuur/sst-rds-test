@@ -1,10 +1,11 @@
 export * as Log from './log';
 
 import { ulid } from 'ulid';
-import { SQL } from './sql';
+import { db } from './db';
 
 export async function createEntry(type: string, message: string) {
-  const [result] = await SQL.DB.insertInto('log')
+  const [result] = await db
+    .insertInto('log')
     .values({ entryID: ulid(), type, message })
     .returningAll()
     .execute();
@@ -12,9 +13,9 @@ export async function createEntry(type: string, message: string) {
 }
 
 export function getEntry(entryID: string) {
-  return SQL.DB.selectFrom('log').selectAll().where('entryID', '=', entryID).executeTakeFirst();
+  return db.selectFrom('log').selectAll().where('entryID', '=', entryID).executeTakeFirst();
 }
 
 export function listEntries() {
-  return SQL.DB.selectFrom('log').selectAll().orderBy('created', 'desc').execute();
+  return db.selectFrom('log').selectAll().orderBy('created', 'desc').execute();
 }

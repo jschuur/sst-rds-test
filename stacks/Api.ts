@@ -1,13 +1,7 @@
-import { Api, StackContext, use } from 'sst/constructs';
-import { Database } from './Database';
+import { Api, StackContext } from 'sst/constructs';
 
 export function API({ stack }: StackContext) {
   const api = new Api(stack, 'api', {
-    defaults: {
-      function: {
-        bind: [use(Database)],
-      },
-    },
     routes: {
       'GET /': 'packages/functions/src/list.handler',
       'GET /create': 'packages/functions/src/create.handler',

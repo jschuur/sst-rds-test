@@ -1,22 +1,26 @@
 {
-  "name": "sst-rds-test",
+  "name": "sst2-test",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "sst dev",
+    "dev": "dotenv -e .env.development sst dev",
     "build": "sst build",
-    "deploy": "sst deploy",
+    "deploy": "dotenv -e .env.development sst deploy",
+    "deploy:prod": "dotenv -e .env.production -- sst deploy --stage prod",
     "remove": "sst remove",
+    "remove:prod": "sst remove --stage prod",
+    "remove:all": "pnpm run remove:prod && pnpm run remove",
     "console": "sst console",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "sst": "^2.0.17",
+    "@tsconfig/node16": "^1.0.3",
     "aws-cdk-lib": "2.62.2",
     "constructs": "10.1.156",
-    "typescript": "^4.9.5",
-    "@tsconfig/node16": "^1.0.3"
+    "dotenv-cli": "^7.0.0",
+    "sst": "^2.0.17",
+    "typescript": "^4.9.5"
   },
   "workspaces": [
     "packages/*"
